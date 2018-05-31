@@ -8,34 +8,31 @@ import os
          the sound frequency is 440Hz, the sample rate is 44100, the channel is 1.
 '''
 
-if os.path.exists("test.pcm"):
-	os.remove("test.pcm")
+f1 = "test1.pcm"
+f2 = "test2.pcm"
 
-if os.path.exists("test1.pcm"):
-	os.remove("test1.pcm")
+if os.path.exists(f1):
+	os.remove(f1)
+
+if os.path.exists(f2):
+	os.remove(f2)
 
 sample_rate = 44100.0
 duration    = 10.0
 nb_samples  = sample_rate * duration
+tincr       = 2 * math.pi * 440.0 / sample_rate 
 
 samples = []
-
-tincr   = 2 * math.pi * 440.0 / sample_rate
 angle   = 0
-
 for i in xrange(int(nb_samples)):
 	ampliltute     = math.sin(angle)
 	samples.append(int(ampliltute * 32767))
 	angle += tincr
 
-#print samples
-
-#print samples[1]
-#print struct.pack("<1h", samples[0])
-file = open("test.pcm", 'a+')
+file = open(f1, 'a+')
 for i in xrange(len(samples)):
 	file.write(struct.pack("<1h", samples[i]))
-	
+file.close()
 
 samples_1 = []
 angle     = 0
@@ -45,9 +42,7 @@ for i in xrange(int(nb_samples)):
 	samples_1.append(int(ampliltute * 32767))
 	angle += tincr
 
-file_1 = open("test1.pcm", 'a+')
+file_1 = open(f2, 'a+')
 for i in xrange(len(samples_1)):
 	file_1.write(struct.pack("<1h", samples_1[i]))
-
-file.close()
 file_1.close()
