@@ -8,10 +8,14 @@ AppID  = '1106954466'
 AppKey = '5u6ehLVCgxhznKhX'
 
 ai_obj = apiutil.AiPlat(AppID, AppKey)
-with open('1.jpg', 'rb') as bin_data:
+with open('1.png', 'rb') as bin_data:
     image_data = bin_data.read()
 
-rsp = ai_obj.getFaceInfo(image_data, 0)
+#rsp = ai_obj.getFaceInfo(image_data, 0)
+rsp = ai_obj.getOcrGeneralocr(image_data)
+print json.dumps(rsp)
+
+exit()
 if rsp['ret'] == 0:
     beauty = 0
     
